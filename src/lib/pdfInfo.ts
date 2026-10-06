@@ -4,26 +4,63 @@
  */
 
 import * as pdfjsLib from 'pdfjs-dist';
+import pdfjsWorkerUrl from 'pdfjs-dist/build/pdf.worker.min.mjs?url';
 
-// Dynamically set worker source to match the exact installed pdfjs-dist version
-pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.mjs`;
+// Use the local worker file bundled by Vite instead of a CDN URL.
+// This avoids version mismatches and CDN availability issues.
+pdfjsLib.GlobalWorkerOptions.workerSrc = pdfjsWorkerUrl;
+
+/**
+ * Safely clean up a PDFDocumentProxy.
+ * pdfjs-dist v6 removed destroy() in favor of cleanup().
+ */
+async function cleanupPdf(pdf: pdfjsLib.PDFDocumentProxy): Promise<void> {
+  try {
+    if (typeof pdf.cleanup === 'function') {
+      await pdf.cleanup();
+    } else if (typeof (pdf as any).destroy === 'function') {
+      await (pdf as any).destroy();
+    }
+  } catch {
+    // Ignore cleanup errors — they don't affect the parsed result.
+  }
+}
 
 /**
  * Parses an uploaded PDF and retrieves its total page count.
  * Safe from the ArrayBuffer detachment bug.
+ * Falls back to parsing without a worker if the worker fails.
  */
 export async function getPdfPageCount(bytes: Uint8Array): Promise<number> {
   const slicedBytes = bytes.slice();
   try {
-    const loadingTask = pdfjsLib.getDocument({ data: slicedBytes });
+    const loadingTask = pdfjsLib.getDocument({
+      data: slicedBytes,
+      useWorkerFetch: false,
+    });
     const pdf = await loadingTask.promise;
     const count = pdf.numPages;
-    // Free resource
-    await (pdf as any).destroy();
+    await cleanupPdf(pdf);
     return count;
-  } catch (error) {
-    console.error('Error getting PDF page count:', error);
-    throw new Error('Invalid or corrupted PDF file');
+  } catch (firstError) {
+    // Fallback: try again with the worker disabled entirely
+    console.warn('PDF worker failed, retrying without worker:', firstError);
+    try {
+      const fallbackBytes = bytes.slice();
+      const loadingTask = pdfjsLib.getDocument({
+        data: fallbackBytes,
+        isEvalSupported: false,
+        useWorkerFetch: false,
+        disableAutoFetch: true,
+      });
+      const pdf = await loadingTask.promise;
+      const count = pdf.numPages;
+      await cleanupPdf(pdf);
+      return count;
+    } catch (secondError) {
+      console.error('PDF parsing failed even without worker:', secondError);
+      throw secondError;
+    }
   }
 }
 
@@ -39,7 +76,7 @@ export async function renderPdfPageToCanvas(
 ): Promise<void> {
   const slicedBytes = bytes.slice();
   try {
-    const loadingTask = pdfjsLib.getDocument({ data: slicedBytes });
+    const loadingTask = pdfjsLib.getDocument({ data: slicedBytes, useWorkerFetch: false });
     const pdf = await loadingTask.promise;
     try {
       const page = await pdf.getPage(pageNumber);
@@ -61,7 +98,7 @@ export async function renderPdfPageToCanvas(
       
       await page.render(renderContext).promise;
     } finally {
-      await (pdf as any).destroy();
+      await cleanupPdf(pdf);
     }
   } catch (error) {
     console.error('Error rendering PDF page preview:', error);

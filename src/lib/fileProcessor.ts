@@ -86,12 +86,16 @@ export async function processFilesPipeline({
       try {
         pageCount = await getPdfPageCount(bytes);
       } catch (pdfErr: any) {
+        const errMsg = (pdfErr?.message || '').toLowerCase();
+        const errName = (pdfErr?.name || '').toLowerCase();
         if (
-          pdfErr.name === 'PasswordException' || 
-          (pdfErr.message && pdfErr.message.toLowerCase().includes('password'))
+          errName === 'passwordexception' || 
+          errMsg.includes('password') ||
+          errMsg.includes('encrypted')
         ) {
           throw new Error('PASSWORD_LOCKED');
         } else {
+          console.error(`PDF parse error for "${file.name}":`, pdfErr);
           throw new Error('DAMAGED_HEADER');
         }
       }
