@@ -48,7 +48,7 @@ npx tsx scripts/regression-test.ts
 - None known.
 
 ## AI tools used
-- Google AI Studio (Model: Gemini 3.5 Flash).
+- Google AI Studio (Model: Gemini 3.5 Flash), Claude Sonnet 5.5.
 
 ## Most useful prompt
 Here are the most useful prompts used during the development of each milestone:
