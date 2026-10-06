@@ -1,20 +1,52 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
+# AI Dev Fest Vibe Coding
 
-# Run and deploy your AI Studio app
+A React + Vite application built for AI Dev Fest.
 
-This contains everything you need to run your app locally.
+## Tech Stack
 
-View your app in AI Studio: https://ai.studio/apps/20b70aee-3854-474c-85fb-df7ed117edc7
+- **React 19** + **TypeScript**
+- **Vite 8** — fast dev server & bundler
+- **Tailwind CSS 4** — utility-first styling
+- **Google Generative AI** (`@google/genai`)
+- **pdf-lib** + **pdfjs-dist** — PDF processing
+- **Express** — backend server
 
-## Run Locally
+## Getting Started
 
-**Prerequisites:**  Node.js
+### Prerequisites
 
+- [Node.js](https://nodejs.org/) (v18 or higher)
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/ShahriarXProxima/devfest-242-35-799.git
+   cd devfest-242-35-799
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Set up environment variables — create a `.env.local` file and add your Gemini API key:
+   ```
+   GEMINI_API_KEY=your_api_key_here
+   ```
+
+4. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+   The app will be available at `http://localhost:3000`
+
+## Scripts
+
+| Command | Description |
+|---|---|
+| `npm run dev` | Start development server |
+| `npm run build` | Build for production |
+| `npm run preview` | Preview production build |
+| `npm run lint` | Run TypeScript type check |
