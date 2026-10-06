@@ -94,6 +94,8 @@ To do this, shift the MediaBox and CropBox of each page downward by 28pt before 
 ```
 
 ## Output
+![App Screenshot](./public/screenshot.png)
+
 - `output/T-2026-0417_Package.pdf` (compiled dynamically from the sample pack, containing exactly 16 pages with the correct blueprints at pages 2, 3, 4, 5, 6-7, 8-13, 14-15, and 16).
 
 ## Licenses
