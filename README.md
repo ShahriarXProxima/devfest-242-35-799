@@ -1,9 +1,9 @@
 # Tender Document Package Builder
 
-**Name:** Saad (ffmaxsaad2@gmail.com)
-**Registration number:** REG-2026-10-06
+**Name:** Md. Shahriar Tahmid
+**Registration number:** 242-35-799
 **Live site (HTTPS):** [https://ais-pre-7nh5tfp3f3iznlkawfejig-419954255390.asia-east1.run.app](https://ais-pre-7nh5tfp3f3iznlkawfejig-419954255390.asia-east1.run.app)
-**Repository:** [https://github.com/ffmaxsaad2/tender-document-package-builder](https://github.com/ffmaxsaad2/tender-document-package-builder)
+**Repository:** [https://github.com/ShahriarXProxima/devfest-242-35-799](https://github.com/ShahriarXProxima/devfest-242-35-799)
 
 ## How to run
 ```bash
