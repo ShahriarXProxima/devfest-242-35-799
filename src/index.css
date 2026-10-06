@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", "Inter", "Noto Sans Bengali", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  
+  --color-brand-primary: #1e3a8a; /* Deep Navy */
+  --color-brand-secondary: #0f172a; /* Dark Slate */
+}
+
+/* Custom global styles to handle layout scrollbars and default rendering */
+body {
+  font-family: var(--font-sans);
+}
+
+/* Custom styling for standard interactive elements */
+button, select, input {
+  font-family: inherit;
+}

@@ -1,0 +1,6 @@
+{
+  "name": "Tender Document Package Builder",
+  "description": "An offline, client-side utility for matching tender requirements, managing PDF files, and building consolidated tender packages.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

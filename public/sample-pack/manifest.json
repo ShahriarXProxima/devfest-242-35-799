@@ -1,0 +1,49 @@
+{
+  "files": [
+    {
+      "name": "company_logo.png",
+      "type": "image/png"
+    },
+    {
+      "name": "experience_cert.pdf",
+      "pageCount": 2
+    },
+    {
+      "name": "experience_cert (1).pdf",
+      "pageCount": 2,
+      "duplicateOf": "experience_cert.pdf"
+    },
+    {
+      "name": "trade_license_2025.pdf",
+      "pageCount": 1
+    },
+    {
+      "name": "trade_license_2026.pdf",
+      "pageCount": 1
+    },
+    {
+      "name": "bank_solvency.pdf",
+      "pageCount": 1
+    },
+    {
+      "name": "03_tin_certificate.pdf",
+      "pageCount": 1
+    },
+    {
+      "name": "04_vat_certificate.pdf",
+      "pageCount": 1
+    },
+    {
+      "name": "02_technical_proposal.pdf",
+      "pageCount": 6
+    },
+    {
+      "name": "01_financial_proposal.pdf",
+      "pageCount": 2
+    },
+    {
+      "name": "scan_0042.pdf",
+      "pageCount": 1
+    }
+  ]
+}
